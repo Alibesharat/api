@@ -10,14 +10,20 @@ using Microsoft.EntityFrameworkCore;
          public DbSet<AppUser> AppUsers { get; set; }
 
 
-
     }
     public class Thread
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public Guid UserId{get;set;}
+    }
+
+
+    public class UserThread
+    {
+        public string Id {get;set;}
+        public string ThreadId{get;set;}
+        public Guid AppUserId{get;set;}
     }
 
     public class AppUser

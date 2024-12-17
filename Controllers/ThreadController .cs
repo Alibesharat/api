@@ -28,7 +28,7 @@ namespace api.Controllers
 
         // GET: api/thread/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetThreadById(string id)
+        public async Task<IActionResult> GetThreadById(Guid id)
         {
             _logger.LogInformation("Fetching thread with ID: {Id}", id);
             var thread = await _context.Threads.FindAsync(id);
@@ -51,7 +51,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            thread.Id = Guid.NewGuid().ToString();
+            thread.Id = Guid.NewGuid();
             _context.Threads.Add(thread);
             await _context.SaveChangesAsync();
 
@@ -61,7 +61,7 @@ namespace api.Controllers
 
         // PUT: api/thread/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateThread(string id, [FromBody] Thread updatedThread)
+        public async Task<IActionResult> UpdateThread(Guid id, [FromBody] Thread updatedThread)
         {
             _logger.LogInformation("Updating thread with ID: {Id}", id);
             if (id != updatedThread.Id)
@@ -92,7 +92,7 @@ namespace api.Controllers
 
         // DELETE: api/thread/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteThread(string id)
+        public async Task<IActionResult> DeleteThread(Guid id)
         {
             _logger.LogInformation("Deleting thread with ID: {Id}", id);
             var thread = await _context.Threads.FindAsync(id);
